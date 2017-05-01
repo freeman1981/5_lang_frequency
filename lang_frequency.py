@@ -1,23 +1,30 @@
 import argparse
 import sys
+import os
 from string import punctuation
 from collections import Counter
 
 
+COUNT_SHOWING_WORDS = 10
+
+
 def load_data(file_path):
+    if not os.path.exists(file_path):
+        return None
     with open(file_path, 'r') as file_handler:
         return file_handler.read()
 
 
-def get_ten_most_frequent_words(text: str):
+def get_most_frequent_words(text: str, count_showing_words=COUNT_SHOWING_WORDS):
     translator = str.maketrans('', '', punctuation)
     translated_text = text.translate(translator).lower()
     words = translated_text.split()
     counted_words = Counter(words)
-    return sorted(counted_words.items(), key=lambda item: item[1], reverse=True)[:10]
+    return counted_words.most_common(count_showing_words)
 
 
-def print_most_frequent_words(dict_items):
+def print_most_frequent_words_in_file(dict_items, path_to_file):
+    print('The most frequent words in {file_path} is:'.format(file_path=path_to_file))
     for dict_item in dict_items:
         print('word "{}" was founded {} times'.format(*dict_item))
 
@@ -30,10 +37,8 @@ def parse_command_line_and_get_it_args():
 
 if __name__ == '__main__':
     args = parse_command_line_and_get_it_args()
-    try:
-        text = load_data(args.path)
-    except FileNotFoundError:
+    text = load_data(args.path)
+    if text is None:
         print('file {file_path} does not exists'.format(file_path=args.path))
         sys.exit(1)
-    print('Ten most frequent words in {file_path} is:'.format(file_path=args.path))
-    print_most_frequent_words(get_ten_most_frequent_words(text))
+    print_most_frequent_words_in_file(get_most_frequent_words(text), args.path)

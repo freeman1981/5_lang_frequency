@@ -1,7 +1,7 @@
-# Frequency Analysis of Words
+# Анализ частоты слов
 
-The script count words in requested text file and show ten the most frequent words with it frequency,
-ordered by they frequency.
+Программа считает колличество слов в текстовом файле и показывает десять наиболее часто встречающихся слов
+(с их частотой) в порядке убывания их частоты.
 
 # Как запустить
 
@@ -22,6 +22,6 @@ word "words" was founded 3 times
 
 Запуск на Windows происходит аналогично.
 
-# Project Goals
+# Цели проекта
 
-The code is written for educational purposes. Training course for web-developers - [DEVMAN.org](https://devman.org)
+Код создан в учебных целях. В рамках учебного курса по веб-разработке - DEVMAN.org
